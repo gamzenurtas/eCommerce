@@ -1,0 +1,25 @@
+	<?
+				echo '<ul id="MenuBar1" class="cat_menu">';
+				$sql="SELECT * FROM kategoriler WHERE ustkategori='0' ORDER BY kategori ASC";
+				$sonuc=mysql_query($sql);
+				while ($sqla=mysql_fetch_array($sonuc)){
+				echo '	
+				<li><a class="hassubs" href="#">'.$sqla[kategori].'</a>
+  				<ul>';
+				$sql2="SELECT * FROM kategoriler WHERE ustkategori='$sqla[kategoriId]' and grup='0' ORDER BY kategori ASC";
+				$sonuc2=mysql_query($sql2);
+ 				while ($sqlb=mysql_fetch_array($sonuc2)){ 
+ 				echo '
+                <li><a class="hassubs" href="#">'.$sqlb[kategori].'</a>
+                <ul>';
+				$sql3="SELECT * FROM kategoriler WHERE grup='$sqlb[kategoriId]' ORDER BY kategori ASC";
+				$sonuc3=mysql_query($sql3);		
+				while ($sqlc=mysql_fetch_array($sonuc3)){
+				echo '<li><a href="katmagaza.php?s=listele&a='.$sqlc[ustkategori].'&g='.$sqlc[grup].'&al='.$sqlc[kategoriId].'">'.$sqlc[kategori].'</a></li>';
+				}
+				echo '</ul></li>';
+				}
+				echo '</ul> </li>';
+				}
+				echo '</ul>';
+				?>
